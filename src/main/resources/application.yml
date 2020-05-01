@@ -1,0 +1,24 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3301/photoapp
+    username: root
+    password: root
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+doma:
+  naming: SNAKE_LOWER_CASE
+  dialect: mysql
+
+s3:
+  access-key: AKIAX5MZ63DX4Q5YT6Z2
+  secret-access-key: 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
+  bucket: article20200501
+  url-template: https://article20200501.s3-ap-northeast-1.amazonaws.com/
