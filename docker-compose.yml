@@ -17,15 +17,3 @@ services:
     ports:
       - "6379:6379"
     container_name: photoapp-redis
-
-  minio:
-    image: minio/minio:latest
-    ports:
-      - 19000:9000
-    volumes:
-      - ./data/minio/data:/export
-      - ./data/minio/config:/root/.minio
-    environment:
-      MINIO_ACCESS_KEY: photoappaccess
-      MINIO_SECRET_KEY: photoappsecret
-    command: server /export

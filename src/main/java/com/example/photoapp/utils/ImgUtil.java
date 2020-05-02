@@ -9,9 +9,9 @@ public class ImgUtil {
         return new File(filePath + "/" + name);
     }
 
-    public static String getUniqueFileName(String fileName) {
+    public static String getUniqueFileName(String path, String fileName) {
         Date now = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-        return sdf.format(now) + fileName;
+        return path + sdf.format(now) + fileName;
     }
 }

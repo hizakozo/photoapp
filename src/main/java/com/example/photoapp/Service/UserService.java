@@ -6,7 +6,9 @@ import com.example.photoapp.entity.Auth;
 import com.example.photoapp.entity.User;
 import com.example.photoapp.exception.*;
 import com.example.photoapp.model.UserModel;
+import com.example.photoapp.response.UserDetailResponse;
 import com.example.photoapp.response.UserSignInResponse;
+import com.example.photoapp.utils.ImgUtil;
 import com.example.photoapp.utils.PasswordUtil;
 import com.example.photoapp.utils.TokenUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,7 +36,8 @@ public class UserService {
     }
 
     @Transactional
-    public void signUp (String userName, String loginId, String password, String imagePath) throws UniqueException {
+    public String signUp (String userName, String loginId, String password, String imageName) throws UniqueException {
+        String uniqueName = ImgUtil.getUniqueFileName("user/", imageName);
         String safetyPassword = PasswordUtil.getSafetyPassword(password, loginId);
         if (authDao.findByLoginId(loginId).isPresent()) {
             throw new UniqueException();
@@ -42,7 +45,7 @@ public class UserService {
 
         var user = new User();
         user.setUserName(userName);
-        user.setImagePath(imagePath);
+        user.setImagePath(uniqueName);
         userDao.insert(user);
 
         var auth = new Auth();
@@ -50,6 +53,7 @@ public class UserService {
         auth.setLoginId(loginId);
         auth.setPassword(safetyPassword);
         authDao.insert(auth);
+        return uniqueName;
     }
 
     public UserSignInResponse signIn(String loginId, String password) throws PhotoAppException {

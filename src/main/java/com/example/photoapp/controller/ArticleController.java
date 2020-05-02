@@ -5,7 +5,9 @@ import com.example.photoapp.Service.ArticleService;
 import com.example.photoapp.Service.UserService;
 import com.example.photoapp.exception.PhotoAppException;
 import com.example.photoapp.form.ArticlePostForm;
+import com.example.photoapp.form.UserTokenForm;
 import com.example.photoapp.model.UserModel;
+import com.example.photoapp.response.ArticleListResponse;
 import com.example.photoapp.response.ArticlePostResponse;
 import com.example.photoapp.utils.ImgUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +41,12 @@ public class ArticleController {
         String uniqueFileName = articleService.post(userModel.getUserId(), form);
         amazonS3Service.uploadToAmazonS3(form.getUploadImage(), uniqueFileName);
         return ArticlePostResponse.builder().imagePath(urlTemplate + uniqueFileName).build();
+    }
+
+    @ResponseBody
+    @PostMapping("/list")
+    public ArticleListResponse list(@RequestBody UserTokenForm form) throws PhotoAppException {
+        UserModel userModel = userService.readUserInfoFromRedis(form.getUserToken());
+        return articleService.list(userModel.getUserId());
     }
 }
