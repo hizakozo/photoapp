@@ -24,7 +24,7 @@ doma:
 #  url-template: http://127.0.0.1:19000/minio/articles/
 
 s3:
-  access-key: AKIAX5MZ63DX4Q5YT6Z2
-  secret-access-key: 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
-  bucket: photoapp20200503
-  url-template: https://photoapp20200503.s3-ap-northeast-1.amazonaws.com/
+  access-key: access
+  secret-access-key: secret
+  bucket: bucket
+  url-template: https://
